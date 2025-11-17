@@ -1,0 +1,14 @@
+# .NET
+bin/
+obj/
+*.db
+.vs/
+
+# Node
+node_modules/
+dist/
+.env
+.vite/
+
+# OS
+.DS_Store
