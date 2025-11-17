@@ -1,0 +1,11 @@
+using Application.Premiums;using Application.Interfaces;using FluentValidation;using FluentValidation.AspNetCore;using Infrastructure.Persistence;using MediatR;using Microsoft.EntityFrameworkCore;
+var b=WebApplication.CreateBuilder(args);
+b.Services.AddControllers();
+b.Services.AddDbContext<AppDbContext>(o=>o.UseInMemoryDatabase("PremiumDb"));
+b.Services.AddScoped<IOccupationRepository,OccupationRepository>();
+b.Services.AddMediatR(typeof(CalculatePremiumCommand));
+b.Services.AddValidatorsFromAssemblyContaining<CalculatePremiumValidator>();
+b.Services.AddFluentValidationAutoValidation();
+b.Services.AddCors(p=>p.AddDefaultPolicy(x=>x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+var app=b.Build();
+app.UseCors();app.MapControllers();app.Run();
